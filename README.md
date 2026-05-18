@@ -40,6 +40,33 @@ lib/
 
 > 每个小节文件末尾都包含独立的 `main()` 入口，可脱离主目录单独运行。
 
+## main.dart —— 章节总目录
+
+`main.dart` 是项目的主入口，将所有 6 个小节整合为一个卡片式导航页面，点击任意卡片即可跳转到对应小节演示。
+
+| 代码 | 运行效果 |
+|:---:|:---:|
+| ![代码截图](assets/演示截图/main%20章节总目录-代码.png) | ![运行效果](assets/演示截图/main%20章节总目录-运行效果.png) |
+
+```dart
+import 'chapter3/text.dart';
+import 'chapter3/buttons.dart';
+// ... 其余小节
+
+MaterialApp(
+  home: Scaffold(
+    body: ListView(
+      children: [
+        // 6 张 Card，每张绑定 Navigator.push 跳转
+        _buildCard(context, '3.1 文本及样式', ..., const TextRoute()),
+        _buildCard(context, '3.2 按钮', ..., const ButtonsRoute()),
+        // ...
+      ],
+    ),
+  ),
+)
+```
+
 ---
 
 # 3.1 文本及样式
