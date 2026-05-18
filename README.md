@@ -11,8 +11,8 @@
 
 ```bash
 # 1. 克隆项目
-git clone <your-repo-url>
-cd flutter_application_2
+git clone https://github.com/connonfisher/Flutter_Learning_Chapter_3.git
+cd Flutter_Learning_Chapter_3
 
 # 2. 安装依赖
 flutter pub get
