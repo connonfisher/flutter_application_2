@@ -226,4 +226,100 @@ flutter run lib/chapter3/buttons.dart
 
 ---
 
+# 3.3 图片及 ICON
+
+> 原文地址：[3.3 图片及 ICON](https://book.flutterchina.club/chapter3/img_and_icon.html)
+
+## 功能介绍
+
+演示 Flutter 中图片加载和字体图标的用法：
+
+| 知识点 | 说明 |
+|--------|------|
+| `Image.network` / `NetworkImage` | 从网络加载图片，支持 `ImageProvider` 抽象 |
+| `BoxFit` | 7 种缩放模式：`fill`、`cover`、`contain`、`fitWidth`、`fitHeight`、`scaleDown`、`none` |
+| `colorBlendMode` | 颜色混合模式，如 `BlendMode.difference` |
+| `repeat` | 图片重复模式，如 `ImageRepeat.repeatY` |
+| `Icon` / `Icons` | Material Design 字体图标，矢量、可调颜色大小 |
+
+> iconfont 优势：体积小、矢量无损放大、可应用文本样式、可通过 TextSpan 与文本混用。
+
+## 演示效果
+
+| 代码 | 运行效果 |
+|:---:|:---:|
+| ![代码截图](assets/演示截图/3.3%20图片及ICON-代码.png) | ![运行效果](assets/演示截图/3.3%20图片及ICON-运行效果.png) |
+
+## 核心代码示例
+
+### 网络图片加载
+
+```dart
+// 快捷构造函数
+Image.network(
+  'https://avatars2.githubusercontent.com/u/20411648?s=460&v=4',
+  width: 100.0,
+)
+
+// 通过 ImageProvider
+Image(
+  image: const NetworkImage(
+    'https://avatars2.githubusercontent.com/u/20411648?s=460&v=4',
+  ),
+  width: 100.0,
+)
+```
+
+### BoxFit 缩放模式
+
+```dart
+Image.network(url, width: 100, height: 50, fit: BoxFit.fill)
+Image.network(url, width: 100, height: 50, fit: BoxFit.contain)
+Image.network(url, width: 100, height: 50, fit: BoxFit.cover)
+Image.network(url, width: 100, height: 50, fit: BoxFit.fitWidth)
+Image.network(url, width: 100, height: 50, fit: BoxFit.fitHeight)
+Image.network(url, width: 100, height: 50, fit: BoxFit.scaleDown)
+Image.network(url, width: 100, height: 50, fit: BoxFit.none)
+```
+
+### 颜色混合 & 重复
+
+```dart
+Image.network(
+  url,
+  width: 100.0,
+  color: Colors.blue,
+  colorBlendMode: BlendMode.difference,
+)
+
+Image.network(
+  url,
+  width: 100.0,
+  height: 200.0,
+  repeat: ImageRepeat.repeatY,
+)
+```
+
+### Material Design 图标
+
+```dart
+const Row(
+  children: [
+    Icon(Icons.accessible, color: Colors.green),
+    Icon(Icons.error, color: Colors.green),
+    Icon(Icons.fingerprint, color: Colors.green),
+  ],
+)
+```
+
+## 独立运行
+
+```bash
+flutter run lib/chapter3/img_and_icon.dart
+```
+
+或直接在 IDE 中打开该文件，运行文件内的 `main()` 即可。
+
+---
+
 > 📖 完整章节目录及更多小节请运行 `flutter run` 查看主入口。
