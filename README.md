@@ -322,4 +322,78 @@ flutter run lib/chapter3/img_and_icon.dart
 
 ---
 
+# 3.4 单选开关和复选框
+
+> 原文地址：[3.4 单选开关和复选框](https://book.flutterchina.club/chapter3/radio_and_checkbox.html)
+
+## 功能介绍
+
+演示 Material 风格的单选开关和复选框：
+
+| 知识点 | 说明 |
+|--------|------|
+| `Switch` | Material 单选开关，`activeColor` 自定义激活态颜色 |
+| `Checkbox` | 复选框，支持 `activeColor` 和 `tristate` 三态 |
+| 状态管理 | `Switch` / `Checkbox` 本身不维护选中状态，由父组件通过 `setState` 管理 |
+
+> `tristate: true` 时 Checkbox 有三种状态：`true`（选中）、`false`（未选中）、`null`（半选）。
+
+## 演示效果
+
+| 代码 | 运行效果 |
+|:---:|:---:|
+| ![代码截图](assets/演示截图/3.4%20单选开关和复选框-代码.png) | ![运行效果](assets/演示截图/3.4%20单选开关和复选框-运行效果.png) |
+
+## 核心代码示例
+
+### Switch 单选开关
+
+```dart
+bool _switchSelected = true;
+
+Switch(
+  value: _switchSelected,
+  onChanged: (value) {
+    setState(() {
+      _switchSelected = value;
+    });
+  },
+)
+```
+
+### Checkbox 复选框（含三态）
+
+```dart
+bool _checkboxSelected = true;
+bool? _tristateValue;
+
+// 标准复选框
+Checkbox(
+  value: _checkboxSelected,
+  activeColor: Colors.red,
+  onChanged: (value) {
+    setState(() => _checkboxSelected = value!);
+  },
+)
+
+// 三态复选框
+Checkbox(
+  tristate: true,
+  value: _tristateValue,
+  onChanged: (value) {
+    setState(() => _tristateValue = value);
+  },
+)
+```
+
+## 独立运行
+
+```bash
+flutter run lib/chapter3/radio_and_checkbox.dart
+```
+
+或直接在 IDE 中打开该文件，运行文件内的 `main()` 即可。
+
+---
+
 > 📖 完整章节目录及更多小节请运行 `flutter run` 查看主入口。
