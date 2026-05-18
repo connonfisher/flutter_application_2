@@ -534,4 +534,115 @@ flutter run lib/chapter3/input_and_form.dart
 
 ---
 
-> 📖 完整章节目录及更多小节请运行 `flutter run` 查看主入口。
+# 3.6 进度指示器
+
+> 原文地址：[3.6 进度指示器](https://book.flutterchina.club/chapter3/progress.html)
+
+## 功能介绍
+
+演示 Material 进度指示器的模糊进度、精确进度和动画：
+
+| 知识点 | 说明 |
+|--------|------|
+| `LinearProgressIndicator` | 线性进度条，`value=null` 模糊动画 / `value=0.5` 精确 50% |
+| `CircularProgressIndicator` | 圆形进度条，同理支持模糊与精确模式 |
+| 自定义尺寸 | 通过 `SizedBox` 包裹来约束进度条宽/高，宽高不等时呈现椭圆 |
+| 进度色动画 | `ColorTween` + `AnimationController` 实现颜色渐变 |
+
+## 演示效果
+
+| 代码 | 运行效果 |
+|:---:|:---:|
+| ![代码截图](assets/演示截图/3.6%20进度指示器-代码.png) | ![运行效果](assets/演示截图/3.6%20进度指示器-运行效果.png) |
+
+## 核心代码示例
+
+### 线性进度条
+
+```dart
+// 模糊进度（循环动画）
+LinearProgressIndicator(
+  backgroundColor: Colors.grey[200],
+  valueColor: const AlwaysStoppedAnimation(Colors.blue),
+)
+
+// 精确进度 50%
+LinearProgressIndicator(
+  backgroundColor: Colors.grey[200],
+  valueColor: const AlwaysStoppedAnimation(Colors.blue),
+  value: 0.5,
+)
+```
+
+### 圆形进度条
+
+```dart
+CircularProgressIndicator(
+  backgroundColor: Colors.grey[200],
+  valueColor: const AlwaysStoppedAnimation(Colors.blue),
+)
+
+CircularProgressIndicator(
+  backgroundColor: Colors.grey[200],
+  valueColor: const AlwaysStoppedAnimation(Colors.blue),
+  value: 0.5,
+)
+```
+
+### 自定义尺寸
+
+```dart
+// 线高 3px
+SizedBox(
+  height: 3,
+  child: LinearProgressIndicator(value: 0.5),
+)
+
+// 直径 100px
+const SizedBox(
+  height: 100,
+  width: 100,
+  child: CircularProgressIndicator(value: 0.7),
+)
+
+// 宽高不等 → 椭圆
+const SizedBox(
+  height: 100,
+  width: 130,
+  child: CircularProgressIndicator(value: 0.7),
+)
+```
+
+### 颜色渐变动画
+
+```dart
+late AnimationController _animationController;
+
+// initState
+_animationController = AnimationController(
+  vsync: this,
+  duration: const Duration(seconds: 3),
+);
+_animationController.forward();
+_animationController.addListener(() => setState(() {}));
+
+// build
+LinearProgressIndicator(
+  backgroundColor: Colors.grey[200],
+  valueColor: ColorTween(begin: Colors.grey, end: Colors.blue)
+      .animate(_animationController),
+  value: _animationController.value,
+)
+```
+
+## 独立运行
+
+```bash
+flutter run lib/chapter3/progress.dart
+```
+
+或直接在 IDE 中打开该文件，运行文件内的 `main()` 即可。
+
+---
+
+> 📖 以上为《Flutter 实战·第二版》第三章全部 6 小节。主入口 `flutter run` 可导航到所有小节。
