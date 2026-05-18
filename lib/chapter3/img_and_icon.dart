@@ -100,6 +100,8 @@ class ImageAndIconRoute extends StatelessWidget {
   }
 }
 
+void main() => runApp(const MaterialApp(home: ImageAndIconRoute()));
+
 class _FitExample extends StatelessWidget {
   const _FitExample();
 

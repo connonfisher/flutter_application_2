@@ -100,3 +100,5 @@ class _SwitchAndCheckBoxTestRouteState
     );
   }
 }
+
+void main() => runApp(const MaterialApp(home: SwitchAndCheckBoxTestRoute()));

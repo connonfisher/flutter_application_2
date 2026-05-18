@@ -1,4 +1,17 @@
+// 来源：https://book.flutterchina.club/chapter3/
+//
+// 功能：Flutter 基础组件演示 —— 将第3章全部小节集成在一起，
+//       每个小节可独立导航到对应的演示页面。
+//       各小节文件也包含独立的 main() 入口，可单独运行。
+
 import 'package:flutter/material.dart';
+
+import 'chapter3/text.dart';
+import 'chapter3/buttons.dart';
+import 'chapter3/img_and_icon.dart';
+import 'chapter3/radio_and_checkbox.dart';
+import 'chapter3/input_and_form.dart';
+import 'chapter3/progress.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,115 +20,99 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter 基础组件',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Flutter 基础组件演示'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: .center,
-          children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          _buildCard(
+            context,
+            '3.1 文本及样式',
+            'https://book.flutterchina.club/chapter3/text.html',
+            'Text · TextStyle · TextSpan · DefaultTextStyle',
+            const TextRoute(),
+          ),
+          _buildCard(
+            context,
+            '3.2 按钮',
+            'https://book.flutterchina.club/chapter3/buttons.html',
+            'ElevatedButton · TextButton · OutlinedButton · IconButton',
+            const ButtonsRoute(),
+          ),
+          _buildCard(
+            context,
+            '3.3 图片及 ICON',
+            'https://book.flutterchina.club/chapter3/img_and_icon.html',
+            'Image · BoxFit · colorBlendMode · Icon',
+            const ImageAndIconRoute(),
+          ),
+          _buildCard(
+            context,
+            '3.4 单选开关和复选框',
+            'https://book.flutterchina.club/chapter3/radio_and_checkbox.html',
+            'Switch · Checkbox · tristate',
+            const SwitchAndCheckBoxTestRoute(),
+          ),
+          _buildCard(
+            context,
+            '3.5 输入框及表单',
+            'https://book.flutterchina.club/chapter3/input_and_form.html',
+            'TextField · FocusNode · Form · 表单校验',
+            const InputAndFormRoute(),
+          ),
+          _buildCard(
+            context,
+            '3.6 进度指示器',
+            'https://book.flutterchina.club/chapter3/progress.html',
+            'LinearProgressIndicator · CircularProgressIndicator · 颜色动画',
+            const ProgressRoute(),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+
+  Widget _buildCard(
+    BuildContext context,
+    String title,
+    String url,
+    String tags,
+    Widget page,
+  ) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12.0),
+      child: ListTile(
+        title: Text(title),
+        subtitle: Text(tags, style: const TextStyle(fontSize: 12)),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => page),
+          );
+        },
       ),
     );
   }

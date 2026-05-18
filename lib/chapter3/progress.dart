@@ -163,3 +163,5 @@ class _ProgressRouteState extends State<ProgressRoute>
     );
   }
 }
+
+void main() => runApp(const MaterialApp(home: ProgressRoute()));

@@ -204,6 +204,8 @@ class _InputAndFormRouteState extends State<InputAndFormRoute> {
   }
 }
 
+void main() => runApp(const MaterialApp(home: InputAndFormRoute()));
+
 class _FocusTestWidget extends StatefulWidget {
   const _FocusTestWidget();
 
