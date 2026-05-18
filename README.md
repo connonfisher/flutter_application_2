@@ -140,4 +140,90 @@ flutter run lib/chapter3/text.dart
 
 ---
 
+# 3.2 按钮
+
+> 原文地址：[3.2 按钮](https://book.flutterchina.club/chapter3/buttons.html)
+
+## 功能介绍
+
+演示 Flutter Material 组件库中的所有按钮类型：
+
+| 知识点 | 说明 |
+|--------|------|
+| `ElevatedButton` | 漂浮按钮，默认带有阴影和灰色背景，按下时阴影变大 |
+| `TextButton` | 文本按钮，默认背景透明不带阴影，按下后有背景色 |
+| `OutlinedButton` | 边框按钮，默认带边框且背景透明，按下后边框变亮 |
+| `IconButton` | 纯图标按钮，不包含文字，点击后出现背景 |
+| 带图标的按钮 | `ElevatedButton.icon` / `TextButton.icon` / `OutlinedButton.icon` |
+
+> 所有 Material 按钮按下时均有"水波涟漪动画"，不提供 `onPressed` 时按钮自动变为禁用态。
+
+## 演示效果
+
+| 代码 | 运行效果 |
+|:---:|:---:|
+| ![代码截图](assets/演示截图/3.2%20按钮-代码.png) | ![运行效果](assets/演示截图/3.2%20按钮-运行效果.png) |
+
+## 核心代码示例
+
+### ElevatedButton / TextButton / OutlinedButton
+
+```dart
+ElevatedButton(
+  onPressed: () => debugPrint('按钮被点击'),
+  child: const Text('normal'),
+)
+
+TextButton(
+  onPressed: () => debugPrint('按钮被点击'),
+  child: const Text('normal'),
+)
+
+OutlinedButton(
+  onPressed: () => debugPrint('按钮被点击'),
+  child: const Text('normal'),
+)
+```
+
+### IconButton 图标按钮
+
+```dart
+IconButton(
+  icon: const Icon(Icons.thumb_up),
+  onPressed: () => debugPrint('按钮被点击'),
+)
+```
+
+### 带图标的按钮
+
+```dart
+ElevatedButton.icon(
+  onPressed: _onPressed,
+  icon: const Icon(Icons.send),
+  label: const Text('发送'),
+)
+
+OutlinedButton.icon(
+  onPressed: _onPressed,
+  icon: const Icon(Icons.add),
+  label: const Text('添加'),
+)
+
+TextButton.icon(
+  onPressed: _onPressed,
+  icon: const Icon(Icons.info),
+  label: const Text('详情'),
+)
+```
+
+## 独立运行
+
+```bash
+flutter run lib/chapter3/buttons.dart
+```
+
+或直接在 IDE 中打开该文件，运行文件内的 `main()` 即可。
+
+---
+
 > 📖 完整章节目录及更多小节请运行 `flutter run` 查看主入口。
