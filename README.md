@@ -396,4 +396,142 @@ flutter run lib/chapter3/radio_and_checkbox.dart
 
 ---
 
+# 3.5 输入框及表单
+
+> 原文地址：[3.5 输入框及表单](https://book.flutterchina.club/chapter3/input_and_form.html)
+
+## 功能介绍
+
+演示 `TextField` 输入框和 `Form` 表单的完整用法：
+
+| 知识点 | 说明 |
+|--------|------|
+| `TextField` | 登录输入框布局，`controller` 获取/设置内容，`onChanged` 监听变化 |
+| `FocusNode` / `FocusScopeNode` | 焦点控制，移动焦点、隐藏键盘、监听焦点状态 |
+| `decoration` 自定义样式 | `enabledBorder` / `focusedBorder` 下划线颜色，`InputBorder.none` 隐藏 |
+| `Form` / `TextFormField` / `FormState` | 表单分组校验（`validator`），统一 submit / reset |
+
+## 演示效果
+
+| 代码 | 运行效果 |
+|:---:|:---:|
+| ![代码截图](assets/演示截图/3.5%20输入框及表单-代码.png) | ![运行效果](assets/演示截图/3.5%20输入框及表单-运行效果.png) |
+
+## 核心代码示例
+
+### TextField 登录输入框
+
+```dart
+TextEditingController _unameController = TextEditingController();
+
+TextField(
+  autofocus: true,
+  controller: _unameController,
+  decoration: const InputDecoration(
+    labelText: '用户名',
+    hintText: '用户名或邮箱',
+    prefixIcon: Icon(Icons.person),
+  ),
+  onChanged: (v) => debugPrint('onChanged: $v'),
+)
+
+TextField(
+  decoration: const InputDecoration(
+    labelText: '密码',
+    hintText: '您的登录密码',
+    prefixIcon: Icon(Icons.lock),
+  ),
+  obscureText: true,
+)
+```
+
+### 焦点控制
+
+```dart
+final FocusNode focusNode1 = FocusNode();
+final FocusNode focusNode2 = FocusNode();
+
+// 移动焦点
+FocusScope.of(context).requestFocus(focusNode2);
+
+// 隐藏键盘
+focusNode1.unfocus();
+focusNode2.unfocus();
+```
+
+### 自定义下划线样式
+
+```dart
+TextField(
+  decoration: InputDecoration(
+    labelText: '请输入用户名',
+    prefixIcon: Icon(Icons.person),
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
+    ),
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(color: Colors.blue),
+    ),
+  ),
+)
+
+// 隐藏下划线 + Container 自定义
+Container(
+  decoration: BoxDecoration(
+    border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+  ),
+  child: const TextField(
+    decoration: InputDecoration(
+      labelText: 'Email',
+      border: InputBorder.none,
+    ),
+  ),
+)
+```
+
+### Form 表单校验
+
+```dart
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+Form(
+  key: _formKey,
+  autovalidateMode: AutovalidateMode.onUserInteraction,
+  child: Column(
+    children: [
+      TextFormField(
+        decoration: InputDecoration(labelText: '用户名'),
+        validator: (v) =>
+            v != null && v.trim().isNotEmpty ? null : '用户名不能为空',
+      ),
+      TextFormField(
+        decoration: InputDecoration(labelText: '密码'),
+        obscureText: true,
+        validator: (v) =>
+            v != null && v.trim().length > 5 ? null : '密码不能少于6位',
+      ),
+      ElevatedButton(
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            _formKey.currentState!.save();
+            // 校验通过
+          }
+        },
+        child: const Text('登录'),
+      ),
+    ],
+  ),
+)
+```
+
+## 独立运行
+
+```bash
+flutter run lib/chapter3/input_and_form.dart
+```
+
+或直接在 IDE 中打开该文件，运行文件内的 `main()` 即可。
+
+---
+
 > 📖 完整章节目录及更多小节请运行 `flutter run` 查看主入口。
